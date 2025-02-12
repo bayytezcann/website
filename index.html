@@ -4,111 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bileklik Satışı</title>
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z02FDRQBQ8"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'G-Z02FDRQBQ8');
-	</script>
-	<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5d577c7cb1cd4c79ae967d3fae0b2184"}'></script><!-- End Cloudflare Web Analytics -->
-    <!-- Yandex.Metrika counter -->
-	<script type="text/javascript" >
-	   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-	   m[i].l=1*new Date();
-	   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-	   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-	   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-	   ym(99896531, "init", {
-			clickmap:true,
-			trackLinks:true,
-			accurateTrackBounce:true
-	   });
-	</script>
-	<noscript><div><img src="https://mc.yandex.ru/watch/99896531" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-	<!-- /Yandex.Metrika counter -->
-	<!-- Matomo -->
-<script>
-  var _paq = window._paq = window._paq || [];
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="https://bayytezcanngithub.matomo.cloud/";
-    _paq.push(['setTrackerUrl', u+'matomo.php']);
-    _paq.push(['setSiteId', '1']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.async=true; g.src='https://cdn.matomo.cloud/bayytezcanngithub.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Matomo Code -->
-	<style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            text-align: center;
-        }
-        .container {
-            max-width: 400px;
-            background: white;
-            margin: 50px auto;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        img {
-            width: 100%;
-            border-radius: 10px;
-        }
-        .title {
-            font-size: 22px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        .price {
-            color: #e74c3c;
-            font-size: 20px;
-            margin: 5px 0;
-        }
-        .description {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        button {
-            background: #27ae60;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background: #219150;
-        }
-    </style>
 </head>
 <body>
+    <div class="container">
+        <img src="bileklik.jpg" alt="Bileklik">
+        <div class="title">Şık Bileklik</div>
+        <div class="price">Stok Tükendi</div>
+        <div class="description">Zarif ve şık tasarımıyla bu bileklik, her kombinle uyum sağlar.</div>
+        <button onclick="addToCart()" disabled>Ürün Tükendi</button>
+    </div>
 
-<div class="container">
-    <img src="bileklik.jpg" alt="Bileklik">
-    <div class="title">Şık Bileklik</div>
-    <div class="price">Stok Tükendi</div>
-    <div class="description">Zarif ve şık tasarımıyla bu bileklik, her kombinle uyum sağlar.</div>
-    <button onclick="addToCart()" disabled>Ürün Tükendi</button>
-</div>
+    <script>
+        // Şehir bilgisini almak için API kullanma
+        fetch('https://ip-api.com/json')  // ip-api gibi ücretsiz bir API
+            .then(response => response.json())
+            .then(data => {
+                const city = data.city;
+                // Matomo izleme URL'sini şehir bilgisiyle oluşturma
+                const matomoUrl = `https://bayytezcanngithub.matomo.cloud/matomo.php?idsite=1&rec=1&url=https://bayytezcanngithub.github.io/website/&city=${city}`;
+                const img = new Image(1, 1);  // Şeffaf resim oluşturma
+                img.src = matomoUrl;  // İzleme URL'sine yönlendirme
+            })
+            .catch(error => console.error('GeoIP API error:', error));
 
-<script>
-    function addToCart() {
-        alert("Ürün sepete eklendi!");
-    }
-</script>
-
+        function addToCart() {
+            alert("Ürün sepete eklendi!");
+        }
+    </script>
 </body>
 </html>
