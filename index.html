@@ -3,137 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oyun</title>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z02FDRQBQ8"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-Z02FDRQBQ8');
-    </script>
-    <!-- Cloudflare Web Analytics -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5d577c7cb1cd4c79ae967d3fae0b2184"}'></script>
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-       m[i].l=1*new Date();
-       for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-       ym(99896531, "init", {
-            clickmap:true,
-            trackLinks:true,
-            accurateTrackBounce:true  
-       });
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/99896531" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
-    <!-- Matomo -->
-    <script>
-      var _paq = window._paq = window._paq || [];
-      _paq.push(['trackPageView']);
-      _paq.push(['enableLinkTracking']);
-      (function() {
-        var u="https://bayytezcanngithub.matomo.cloud/";
-        _paq.push(['setTrackerUrl', u+'matomo.php']);
-        _paq.push(['setSiteId', '1']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.async=true; g.src='https://cdn.matomo.cloud/bayytezcanngithub.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
-      })();
-    </script>
-    <!-- End Matomo Code -->
+    <title>Sevgililik Sözleşmesi</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
-        #words { margin: 20px; }
-        .word { display: inline-block; margin: 10px; padding: 10px; border: 1px solid #0077b6; border-radius: 5px; cursor: pointer; }
-        .table { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 20px; gap: 5px; }
-        .cell { height: 50px; border: 1px dashed #0077b6; background-color: #f1faee; text-align: center; line-height: 50px; cursor: pointer; }
-        h1 { color: #e63946; }
-        #result { margin-top: 20px; font-size: 20px; }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f3f3f3;
+            font-family: Arial, sans-serif;
+        }
+        .contract {
+            width: 210mm;
+            height: 297mm;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            position: relative;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            color: #555;
+            text-align: center;
+        }
+        .terms {
+            margin: 20px 0;
+        }
+        .term {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        .term input {
+            margin-right: 10px;
+        }
+        .sign-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #signButton {
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 30px;
+        }
+        #signButton:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+        #signButton:hover:enabled {
+            background: #218838;
+            transform: scale(1.05);
+        }
+        .signature {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        #popupMessage {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
-    <h1>Meryem cümleyi tahmin etmeli</h1>
-    <button onclick="startGame()">Oyna</button>
-    <div id="game" style="display:none;">
-        <div id="words"></div>
-        <div class="table">
-            <div class="cell" onclick="placeWord(this)"></div>
-            <div class="cell" onclick="placeWord(this)"></div>
-            <div class="cell" onclick="placeWord(this)"></div>
-            <div class="cell" onclick="placeWord(this)"></div>
-            <div class="cell" onclick="placeWord(this)"></div>
-            <div class="cell" onclick="placeWord(this)"></div>
-            <div class="cell" onclick="placeWord(this)"></div>
-            <div class="cell" onclick="placeWord(this)"></div>
-        </div>
-        <button onclick="checkSentence()">Cümleyi Kontrol Et</button>
-        <div id="result"></div>
+<div class="contract">
+    <h1>Sevgililik Sözleşmesi</h1>
+    <p>Bu sözleşme, taraflar arasında uyumu sağlamak için hazırlanmıştır. Lütfen tüm maddeleri onaylayın.</p>
+    <div class="terms">
+        <div class="term"><input type="checkbox" class="agree"> Sabah uyandığında "Günaydın aşkım" denilecek.</div>
+        <div class="term"><input type="checkbox" class="agree"> Akşam yatarken "İyi geceler" mesajı atılacak.</div>
+        <div class="term"><input type="checkbox" class="agree"> En az haftada bir kez güzel bir sürpriz yapılacak.</div>
+        <div class="term"><input type="checkbox" class="agree"> Tatlı krizlerinde hiç düşünmeden tatlı alınacak.</div>
+        <div class="term"><input type="checkbox" class="agree"> Birlikte dışarı çıkarken mutlaka fotoğraf çekilecek.</div>
+        <div class="term"><input type="checkbox" class="agree"> "Ne yersin?" sorusuna "Bilmem" cevabı verilmeyecek.</div>
+        <div class="term"><input type="checkbox" class="agree"> Birbirimize daha fazla değer verilecek ve birbirimizi kırmamıza izin vermeyeceğiz.</div>
+        <div class="term"><input type="checkbox" class="agree"> "Ne yapıyorsun?" sorusuna "Hiç bir şey" cevabı verilmeyecek.</div>
+        <div class="term"><input type="checkbox" class="agree"> Mesajlaşırken sürekli "Ben seni daha çok seviyorum!" denilecek.</div>
+        <div class="term"><input type="checkbox" class="agree"> "Beni seviyor musun?" sorusu her zaman "Tabii ki!" ile cevaplanacak.</div>
+        <div class="term"><input type="checkbox" class="agree"> Mesajlaşırken her emoji'ye mutlaka "kalp" eklemesi yapılacak.</div>
+        <div class="term"><input type="checkbox" class="agree"> "Bir şey söyleyeceğim ama sana sürpriz!" mesajları atılacak.</div>
+        <div class="term"><input type="checkbox" class="agree"> Her anın sonunda "Bunu sana anlatmak istedim!" diyeceğiz.</div>
+        <div class="term"><input type="checkbox" class="agree"> Hata yapıldığında tartışmayı büyütmek yerine kalıcı çözümler bulunacak.</div>
+        <div class="term"><input type="checkbox" class="agree"> Gıcıklık, uyuzluk gibi şeyler arada bir yapılabilecek.</div>
     </div>
+    <div class="sign-container">
+        <button id="signButton" disabled>İmzala</button>
+        <div class="signature" id="signature">İsa &</div>
+    </div>
+</div>
 
-    <script>
-        const wordsArray = [
-            'İsa',
-            'uyuz',
-            'Meryem\'i',
-            'mutlu',
-            'etmek',
-            'için',
-            'oyun',
-            'yapıyor.'
-        ];
-        const correctSentence = "İsa uyuz Meryem'i mutlu etmek için oyun yapıyor.";
-        let currentWordIndex = 0;
+<div id="popupMessage">Hayatım seni çok seviyorum, iyi ki varsın İsa! ❤️❤️❤️❤️❤️</div>
 
-        function startGame() {
-            document.getElementById('words').innerHTML = '';
-            document.getElementById('result').innerHTML = '';
-            document.getElementById('game').style.display = 'block';
-            generateWords();
-        }
+<script>
+    const checkboxes = document.querySelectorAll(".agree");
+    const signButton = document.getElementById("signButton");
+    const signature = document.getElementById("signature");
+    const popupMessage = document.getElementById("popupMessage");
 
-        function generateWords() {
-            const shuffledWords = wordsArray.sort(() => Math.random() - 0.5);
-            shuffledWords.forEach(word => {
-                const span = document.createElement('span');
-                span.innerText = word;
-                span.className = 'word';
-                span.onclick = () => selectWord(word);
-                document.getElementById('words').appendChild(span);
-            });
-        }
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", () => {
+            signButton.disabled = ![...checkboxes].every(cb => cb.checked);
+        });
+    });
 
-        let selectedWord = '';
+    signButton.addEventListener("click", () => {
+        signature.innerText = "İsa & Meryem";
+        signature.style.opacity = "1";
+        signature.style.transform = "scale(1)";
 
-        function selectWord(word) {
-            selectedWord = word;
-            alert(selectedWord + " seçildi! Şimdi bir hücreye tıklayın.");
-        }
-
-        function placeWord(cell) {
-            if (cell.innerText === '') {
-                cell.innerText = selectedWord;
-                selectedWord = ''; // Seçilen kelimeyi sıfırla  
-            } else {
-                // Eğer hücre doluysa geri al  
-                const word = cell.innerText;
-                cell.innerText = '';
-                selectedWord = word; // Geri alınan kelimeyi seç  
-            }
-        }
-
-        function checkSentence() {
-            const cells = document.querySelectorAll('.cell');
-            let userSentence = Array.from(cells).map(cell => cell.innerText).join(' ');
-            if (userSentence.trim() === correctSentence) {
-                document.getElementById('result').innerText = "Allah'ın Delisi :P";
-            } else {
-                document.getElementById('result').innerText = "Cümle yanlış! Tekrar deneyin.";
-            }
-        }
-    </script>
+        // Gösterilen mesaj kutusunu 3 saniye boyunca göster
+        popupMessage.style.display = "block";
+        setTimeout(() => {
+            popupMessage.style.display = "none";
+        }, 3000);
+    });
+</script>
 </body>
 </html>
